@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UD20 — Built in Africa. Built for Africa.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #f8f7f3;
+  --black: #0d0d0d;
+  --paper: #efede7;
+  --paper-dark: #e5e2d9;
+  --ink: #1c1b18;
+  --gray: #8a8880;
+  --gray-dark: #3e3c39;
+  --border: rgba(13,13,13,0.09);
+  --border-md: rgba(13,13,13,0.16);
+  --accent: #c8a96e;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--white); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; overflow-x:hidden; line-height:1.6; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:0 52px; height:68px; border-bottom:1px solid var(--border); background:rgba(248,247,243,0.96); backdrop-filter:blur(16px); }
+.logo { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; letter-spacing:.04em; color:var(--black); text-decoration:none; display:flex; align-items:baseline; gap:10px; }
+.logo-sub { font-family:'DM Mono',monospace; font-size:9px; color:var(--gray); letter-spacing:.28em; text-transform:uppercase; }
+.nav-links { list-style:none; display:flex; gap:32px; }
+.nav-links a { color:var(--gray); text-decoration:none; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; transition:color .25s; border-bottom:1px solid transparent; padding-bottom:2px; }
+.nav-links a:hover { color:var(--black); border-color:var(--black); }
+.nav-cta { background:var(--black); color:var(--white); font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; padding:10px 20px; text-decoration:none; display:inline-block; transition:background .25s; }
+.nav-cta:hover { background:var(--gray-dark); }
+
+/* HERO */
+.hero {
+  height: 100vh;
+  min-height: 640px;
+  padding: 68px 52px 60px;
+  padding-top: 148px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: var(--white);
+}
+.hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:64px 64px; mask-image:radial-gradient(ellipse 70% 70% at 90% 10%, black 0%, transparent 65%); pointer-events:none; }
+.hero-ghost { position:absolute; right:-10px; bottom:-30px; font-family:'Playfair Display',serif; font-size:clamp(160px,26vw,340px); font-weight:900; line-height:1; color:transparent; -webkit-text-stroke:1px rgba(13,13,13,0.04); user-select:none; pointer-events:none; letter-spacing:-.05em; }
+.hero-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.32em; text-transform:uppercase; color:var(--gray); margin-bottom:24px; display:flex; align-items:center; gap:14px; animation:fadeUp .9s .1s both; }
+.hero-tag::before { content:''; width:28px; height:1px; background:var(--accent); }
+.hero-title { font-family:'Playfair Display',serif; font-size:clamp(44px,8vw,104px); font-weight:900; line-height:.93; letter-spacing:-.025em; margin-bottom:36px; position:relative; z-index:1; animation:fadeUp .9s .25s both; }
+.hero-title em { font-style:italic; font-weight:400; color:var(--gray); }
+.hero-bottom { display:flex; justify-content:space-between; align-items:flex-end; gap:40px; position:relative; z-index:1; animation:fadeUp .9s .4s both; }
+.hero-desc { max-width:400px; font-size:15px; line-height:1.85; color:var(--gray-dark); border-left:2px solid var(--accent); padding-left:20px; }
+.hero-meta { text-align:right; flex-shrink:0; }
+.hero-meta-year { font-family:'Playfair Display',serif; font-size:52px; font-weight:900; line-height:1; color:transparent; -webkit-text-stroke:1px var(--border-md); }
+.hero-meta-line { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--gray); margin-top:4px; }
+.hero-scroll { position:absolute; right:52px; bottom:60px; display:flex; flex-direction:column; align-items:center; gap:10px; animation:fadeIn 1s .9s both; }
+.hero-scroll-line { width:1px; height:48px; background:linear-gradient(to bottom,transparent,var(--accent)); animation:scrollPulse 2s infinite; }
+.hero-scroll-txt { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.32em; text-transform:uppercase; color:var(--gray); writing-mode:vertical-rl; }
+
+/* SECTIONS */
+.section { padding:104px 52px; border-top:1px solid var(--border); }
+.section--paper { background:var(--paper); }
+.section--dark { background:var(--ink); color:var(--white); }
+.section-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--gray); margin-bottom:48px; display:flex; align-items:center; gap:14px; }
+.section-tag--light { color:rgba(255,255,255,.3); }
+.section-tag::after { content:''; flex:1; max-width:52px; height:1px; background:var(--border-md); }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(30px,4vw,52px); font-weight:700; line-height:1.08; margin-bottom:28px; }
+.section-title em { font-style:italic; font-weight:400; color:var(--gray); }
+
+/* REVEAL — visible by default, animates in */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ABOUT */
+.about-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:80px; align-items:start; }
+.about-body { font-size:15px; line-height:1.85; color:var(--gray-dark); margin-bottom:18px; }
+.about-highlight { background:var(--paper); border-left:3px solid var(--accent); padding:18px 22px; margin-top:28px; font-family:'Playfair Display',serif; font-style:italic; font-size:16px; line-height:1.6; color:var(--ink); }
+.stats { }
+.stat-row { display:flex; justify-content:space-between; align-items:baseline; padding:20px 0; border-bottom:1px solid var(--border); }
+.stat-row:first-child { border-top:1px solid var(--border); }
+.stat-num { font-family:'Playfair Display',serif; font-size:40px; font-weight:900; line-height:1; }
+.stat-lbl { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); }
+
+/* VISION */
+.vision-quote { font-family:'Playfair Display',serif; font-size:clamp(22px,3.5vw,44px); font-weight:700; line-height:1.2; max-width:820px; margin-bottom:64px; padding-left:26px; border-left:3px solid var(--accent); }
+.vision-quote em { font-style:italic; font-weight:400; color:var(--gray); }
+.pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+.pillar { background:var(--white); padding:36px 28px; border:1px solid var(--border); transition:background .3s; position:relative; overflow:hidden; }
+.pillar::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+.pillar:hover { background:var(--paper-dark); }
+.pillar:hover::after { transform:scaleX(1); }
+.pillar-icon { font-size:22px; margin-bottom:18px; display:block; color:var(--accent); }
+.pillar-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; margin-bottom:10px; line-height:1.2; }
+.pillar-body { font-size:13px; color:var(--gray-dark); line-height:1.75; }
+
+/* PROJECTS */
+.projects-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; }
+.projects-note { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray); text-align:right; max-width:200px; line-height:1.8; }
+.projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:3px; }
+.pcard { background:var(--paper); border:1px solid var(--border); padding:36px 32px; position:relative; overflow:hidden; transition:background .3s; }
+.pcard:hover { background:var(--paper-dark); }
+.pcard::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+.pcard:hover::before { transform:scaleX(1); }
+.pcard-num { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.22em; color:var(--gray); margin-bottom:24px; display:block; }
+.pcard-name { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; margin-bottom:10px; line-height:1.25; padding-right:80px; }
+.pcard-desc { font-size:13px; color:var(--gray-dark); line-height:1.75; }
+.pcard-status { position:absolute; top:32px; right:32px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px; border:1px solid var(--border); color:var(--gray); }
+.pcard-status.active { border-color:var(--accent); color:var(--accent); }
+.pcard-lock { margin-top:20px; padding-top:18px; border-top:1px solid var(--border); display:flex; align-items:center; gap:8px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--gray); }
+.lock-icon { width:13px; height:13px; border:1px solid var(--border-md); display:inline-flex; align-items:center; justify-content:center; font-size:7px; flex-shrink:0; }
+
+/* FOUNDER */
+.founder-grid { display:grid; grid-template-columns:340px 1fr; gap:72px; align-items:start; }
+.founder-card { border:1px solid var(--border); background:var(--paper-dark); }
+.founder-avatar { width:100%; aspect-ratio:3/4; background:linear-gradient(145deg,var(--paper) 0%,var(--paper-dark) 100%); display:flex; align-items:center; justify-content:center; position:relative; }
+.founder-avatar-pattern { position:absolute; inset:0; background-image:linear-gradient(45deg,var(--border) 1px,transparent 1px),linear-gradient(-45deg,var(--border) 1px,transparent 1px); background-size:20px 20px; }
+.founder-initials { font-family:'Playfair Display',serif; font-size:76px; font-weight:900; color:var(--paper-dark); position:relative; z-index:1; user-select:none; }
+.founder-card-info { padding:18px 22px; border-top:1px solid var(--border); background:var(--white); }
+.founder-card-name { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; }
+.founder-card-role { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); margin-top:4px; }
+.founder-content { padding-top:4px; }
+.founder-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--gray); margin-bottom:18px; display:flex; align-items:center; gap:12px; }
+.founder-tag::before { content:''; width:20px; height:1px; background:var(--accent); }
+.founder-name { font-family:'Playfair Display',serif; font-size:clamp(34px,4vw,56px); font-weight:900; line-height:.95; margin-bottom:6px; }
+.founder-role-txt { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gray); margin-bottom:28px; }
+.founder-bio { font-size:14px; line-height:1.88; color:var(--gray-dark); margin-bottom:18px; }
+.founder-quote { border-left:2px solid var(--accent); padding-left:18px; font-family:'Playfair Display',serif; font-style:italic; font-size:17px; line-height:1.5; color:var(--ink); margin-top:28px; }
+
+/* JOIN */
+.join-top { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; margin-bottom:40px; }
+.join-title { font-family:'Playfair Display',serif; font-size:clamp(28px,3.8vw,48px); font-weight:900; line-height:1.05; color:var(--white); margin-bottom:18px; }
+.join-title em { font-style:italic; font-weight:400; color:rgba(255,255,255,.4); }
+.join-desc { font-size:14px; line-height:1.85; color:rgba(255,255,255,.48); }
+.join-form { display:flex; flex-direction:column; gap:3px; }
+.form-group { display:flex; flex-direction:column; gap:7px; }
+.form-lbl { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); }
+.form-lbl span { color:var(--accent); }
+.form-inp, .form-sel, .form-txt { width:100%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:var(--white); font-family:'DM Sans',sans-serif; font-size:14px; font-weight:300; padding:13px 16px; outline:none; border-radius:0; appearance:none; transition:border-color .25s, background .25s; }
+.form-inp:focus, .form-sel:focus, .form-txt:focus { border-color:rgba(255,255,255,.28); background:rgba(255,255,255,.08); }
+.form-inp::placeholder, .form-txt::placeholder { color:rgba(255,255,255,.18); }
+.form-sel option { background:#1c1b18; color:#f8f7f3; }
+.form-txt { resize:vertical; min-height:80px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+.form-btn { width:100%; background:var(--accent); color:var(--black); border:none; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; padding:17px; cursor:pointer; transition:background .25s; margin-top:2px; }
+.form-btn:hover { background:#d4b87a; }
+.form-note-txt { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.14em; color:rgba(255,255,255,.22); text-align:center; text-transform:uppercase; margin-top:8px; }
+.join-perks { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; }
+.join-perk { display:flex; align-items:center; gap:10px; padding:14px 16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); font-size:13px; color:rgba(255,255,255,.58); }
+.perk-icon { color:var(--accent); font-size:14px; flex-shrink:0; }
+.form-success { display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px 24px; gap:14px; }
+.form-success.show { display:flex; }
+.success-icon { font-size:32px; color:var(--accent); }
+.success-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--white); line-height:1.25; }
+.success-body { font-size:13px; color:rgba(255,255,255,.45); line-height:1.75; max-width:340px; }
+.success-recap { margin-top:20px; padding:16px 20px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); text-align:left; width:100%; max-width:360px; }
+.recap-title { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:12px; }
+.recap-row { font-size:12px; color:rgba(255,255,255,.52); line-height:2.1; }
+.recap-label { color:rgba(255,255,255,.25); }
+.success-note { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.2); margin-top:10px; }
+
+/* CONTACT */
+.contact-title { font-family:'Playfair Display',serif; font-size:clamp(38px,7vw,88px); font-weight:900; line-height:.92; letter-spacing:-.025em; margin-bottom:52px; }
+.contact-title em { font-style:italic; font-weight:400; color:var(--gray); }
+.contact-cols { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+.ccol { padding:28px 24px; background:var(--paper); border:1px solid var(--border); transition:background .3s; }
+.ccol:hover { background:var(--paper-dark); }
+.ccol-ttl { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--gray); margin-bottom:14px; }
+.ccol a, .ccol p { display:block; font-size:13px; color:var(--gray-dark); text-decoration:none; line-height:2.1; transition:color .25s; }
+.ccol a:hover { color:var(--black); }
+
+/* FOOTER */
+footer { background:var(--black); color:var(--white); padding:56px 52px 32px; }
+.footer-top { display:grid; grid-template-columns:1fr auto; gap:48px; align-items:start; padding-bottom:44px; border-bottom:1px solid rgba(255,255,255,.07); margin-bottom:32px; }
+.footer-logo { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; margin-bottom:12px; }
+.footer-mission { font-size:13px; color:rgba(255,255,255,.36); line-height:1.75; max-width:320px; }
+.footer-devise { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.devise-flag { font-size:36px; }
+.devise-words { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--white); }
+.devise-sep { color:var(--accent); margin:0 5px; }
+.devise-note { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.28); text-align:right; }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; color:rgba(255,255,255,.24); }
+.powered::before { content:''; display:inline-block; width:5px; height:5px; background:var(--accent); border-radius:50%; margin-right:8px; vertical-align:middle; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes scrollPulse { 0%,100%{opacity:.2} 50%{opacity:1} }
+
+/* RESPONSIVE */
+@media(max-width:1080px) {
+  .about-grid { grid-template-columns:1fr; gap:40px; }
+  .founder-grid { grid-template-columns:1fr; gap:36px; }
+  .founder-card { display:grid; grid-template-columns:160px 1fr; }
+  .founder-avatar { aspect-ratio:1; }
+  .join-top { grid-template-columns:1fr; gap:40px; }
+  .join-perks { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:900px) {
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .hero { padding:68px 20px 48px; padding-top:110px; }
+  .section { padding:64px 20px; }
+  .pillars { grid-template-columns:1fr 1fr; }
+  .projects-grid { grid-template-columns:1fr; }
+  .contact-cols { grid-template-columns:1fr; }
+  footer { padding:40px 20px 24px; }
+  .footer-top { grid-template-columns:1fr; }
+  .footer-devise { align-items:flex-start; }
+  .devise-note { text-align:left; }
+  .footer-bottom { flex-direction:column; gap:10px; text-align:center; }
+  .hero-scroll { display:none; }
+  .join-perks { grid-template-columns:1fr; }
+}
+@media(max-width:600px) {
+  .hero-title { font-size:38px; }
+  .hero-bottom { flex-direction:column; align-items:flex-start; gap:24px; }
+  .projects-head { flex-direction:column; align-items:flex-start; gap:10px; }
+  .form-row { grid-template-columns:1fr; }
+  .pillars { grid-template-columns:1fr; }
+  .founder-card { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">UD20 <span class="logo-sub">Digital Solutions</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#founder">Fondateur</a></li>
+    <li><a href="#join">Rejoindre</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#join" class="nav-cta">Rejoindre l'aventure</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ghost">UD</div>
+  <div class="hero-tag">Abidjan, Côte d'Ivoire — Fondée 2025</div>
+  <h1 class="hero-title">
+    Nous prenons<br>
+    le meilleur <em>du monde.</em><br>
+    Nous le construisons<br>
+    <em>pour l'Afrique.</em>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">UD20 analyse les réalités du marché africain pour créer des solutions numériques qui leur ressemblent vraiment. Pas des copies. Des réponses pensées depuis l'intérieur.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-year">2028</div>
+      <div class="hero-meta-line">Lancement officiel</div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="hero-scroll-txt">Découvrir</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-tag">01 — À propos</div>
+  <div class="about-grid reveal">
+    <div>
+      <h2 class="section-title">Pas des copies.<br><em>Des réponses africaines.</em></h2>
+      <p class="about-body">UD20 part d'un constat simple : les solutions numériques importées ne correspondent pas aux réalités africaines. Nous observons ce qui se passe réellement — comment les gens travaillent, achètent, vendent, communiquent — et nous créons des outils adaptés.</p>
+      <p class="about-body">Nous ne rejetons pas ce qui fonctionne ailleurs. Nous le prenons, nous l'analysons, et nous le reconstruisons avec nos réalités. Prendre le meilleur du monde et le construire pour l'Afrique — c'est notre méthode.</p>
+      <div class="about-highlight">"L'innovation africaine ne viendra pas de l'imitation. Elle viendra de l'adaptation intelligente."</div>
+    </div>
+    <div class="stats reveal">
+      <div class="stat-row">
+        <span class="stat-lbl">Continent ciblé</span>
+        <span class="stat-num" style="font-size:26px;">Afrique</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-lbl">Projets en cours</span>
+        <span class="stat-num">8</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-lbl">Lancement officiel</span>
+        <span class="stat-num">2028</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-lbl">Origine</span>
+        <span class="stat-num" style="font-size:24px;">Côte d'Ivoire</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-lbl">Approche</span>
+        <span class="stat-num" style="font-size:18px; text-align:right; max-width:200px; line-height:1.3;">Analyser & Adapter</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision" class="section section--paper">
+  <div class="section-tag">02 — Vision & Manifeste</div>
+  <blockquote class="vision-quote reveal">"L'Afrique n'a pas besoin qu'on lui apporte des solutions.<br>Elle a besoin qu'on <em>construise les siennes.</em>"</blockquote>
+  <div class="pillars reveal">
+    <div class="pillar">
+      <span class="pillar-icon">◈</span>
+      <div class="pillar-name">Analyser avant de créer</div>
+      <p class="pillar-body">Chaque produit UD20 naît d'une observation terrain. Nous comprenons les besoins réels avant d'écrire une seule ligne de code.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">◉</span>
+      <div class="pillar-name">Adapter, pas copier</div>
+      <p class="pillar-body">Nous prenons ce qui fonctionne dans le monde, le passons au filtre des réalités africaines, et créons quelque chose de nouveau et de juste.</p>
+    </div>
+    <div class="pillar">
+      <span class="pillar-icon">◎</span>
+      <div class="pillar-name">Construire un écosystème</div>
+      <p class="pillar-body">Chaque outil UD20 est connecté aux autres. Ensemble, ils forment une infrastructure numérique pensée pour l'Afrique de demain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="section-tag">03 — Projets</div>
+  <div class="projects-head reveal">
+    <h2 class="section-title">Ce que nous<br><em>construisons</em></h2>
+    <p class="projects-note">8 projets en développement.<br>Lancement progressif 2026–2028.</p>
+  </div>
+  <div class="projects-grid reveal">
+    <div class="pcard">
+      <span class="pcard-status active">En cours</span>
+      <span class="pcard-num">P — 001</span>
+      <div class="pcard-name">Plateforme de certification & confiance</div>
+      <p class="pcard-desc">Outil de vérification des vendeurs. Badge certifié officiel, page de profil, avis vérifiables par les clients en temps réel.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — Bientôt</div>
+    </div>
+    <div class="pcard">
+      <span class="pcard-status active">En cours</span>
+      <span class="pcard-num">P — 002</span>
+      <div class="pcard-name">QR Codes traçables</div>
+      <p class="pcard-desc">Génération de QR codes uniques et traçables pour les produits et vendeurs africains. Vérification d'authenticité instantanée par les clients.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — Bientôt</div>
+    </div>
+    <div class="pcard">
+      <span class="pcard-status">À venir</span>
+      <span class="pcard-num">P — 003</span>
+      <div class="pcard-name">Communauté beauté & boutique</div>
+      <p class="pcard-desc">Communauté dédiée aux personnes avec problèmes de peau. Photos avant/après, avis produits authentiques, achat intégré directement depuis les posts.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — 2027</div>
+    </div>
+    <div class="pcard">
+      <span class="pcard-status">À venir</span>
+      <span class="pcard-num">P — 004</span>
+      <div class="pcard-name">PC Builder & configurateur</div>
+      <p class="pcard-desc">Configurez votre PC sur mesure en ligne. Sélection de composants, calcul automatique du prix, caractéristiques détaillées, commande et livraison.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — 2027</div>
+    </div>
+    <div class="pcard">
+      <span class="pcard-status">À venir</span>
+      <span class="pcard-num">P — 005</span>
+      <div class="pcard-name">Service d'impression à la demande</div>
+      <p class="pcard-desc">Réseau de points d'impression en Côte d'Ivoire. Envoyez votre document, on calcule, on imprime, on livre. Données chiffrées et détruites après impression.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — 2027</div>
+    </div>
+    <div class="pcard">
+      <span class="pcard-status">À venir</span>
+      <span class="pcard-num">P — 006</span>
+      <div class="pcard-name">Créateur de CV en ligne</div>
+      <p class="pcard-desc">Créez un CV professionnel depuis votre téléphone. Photo, mise en forme automatique, export PDF. Accessible sans PC, payable directement depuis la plateforme.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — 2026</div>
+    </div>
+    <div class="pcard">
+      <span class="pcard-status">À venir</span>
+      <span class="pcard-num">P — 007</span>
+      <div class="pcard-name">Éditeur de texte en ligne</div>
+      <p class="pcard-desc">Traitement de texte depuis n'importe quel navigateur. Pensé pour fonctionner avec une connexion limitée. L'alternative africaine à Google Docs.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — 2028</div>
+    </div>
+    <div class="pcard">
+      <span class="pcard-status">À venir</span>
+      <span class="pcard-num">P — 008</span>
+      <div class="pcard-name">Système de chiffrement de données</div>
+      <p class="pcard-desc">Protection et destruction automatique des données utilisateurs après un délai défini. Souveraineté numérique pour les entreprises et particuliers africains.</p>
+      <div class="pcard-lock"><span class="lock-icon">▣</span> Détails verrouillés — 2028</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder" class="section section--paper">
+  <div class="section-tag">04 — Fondateur</div>
+  <div class="founder-grid reveal">
+    <div class="founder-card">
+      <div class="founder-avatar">
+        <div class="founder-avatar-pattern"></div>
+        <div class="founder-initials">RS</div>
+      </div>
+      <div class="founder-card-info">
+        <div class="founder-card-name">Roland Siho</div>
+        <div class="founder-card-role">Fondateur & CEO — UD20</div>
+      </div>
+    </div>
+    <div class="founder-content">
+      <div class="founder-tag">Fondateur & CEO</div>
+      <h2 class="founder-name">Roland<br>Siho</h2>
+      <div class="founder-role-txt">Fondateur — UD20 Digital Solutions — Abidjan, CI</div>
+      <p class="founder-bio">Entrepreneur ivoirien, Roland Siho a fondé UD20 avec une conviction simple : l'Afrique mérite des solutions numériques qui lui ressemblent. Pas des adaptations approximatives de produits occidentaux, mais des outils construits depuis l'intérieur, à partir d'une compréhension profonde des réalités locales.</p>
+      <p class="founder-bio">Sa démarche : observer, analyser, adapter. Prendre le meilleur de ce qui existe dans le monde, le passer au filtre des réalités africaines, et créer quelque chose de nouveau qui répond vraiment aux besoins des gens.</p>
+      <blockquote class="founder-quote">"Je ne veux pas faire ce qui existe déjà.<br>Je veux faire ce qui manque."</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join" class="section section--dark">
+  <div class="section-tag section-tag--light">05 — Rejoindre l'aventure</div>
+  <div class="join-top">
+    <div>
+      <h2 class="join-title">Vous voulez faire partie <em>de l'histoire ?</em></h2>
+      <p class="join-desc">UD20 cherche des personnes qui partagent une vision : construire le numérique africain depuis l'intérieur. Développeurs, designers, marketeurs, entrepreneurs — si vous croyez en cette mission, rejoignez-nous.</p>
+    </div>
+    <div>
+      <div class="join-form" id="join-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-lbl">Prénom <span>*</span></label>
+            <input type="text" class="form-inp" id="f-fn" placeholder="Votre prénom">
+          </div>
+          <div class="form-group">
+            <label class="form-lbl">Nom <span>*</span></label>
+            <input type="text" class="form-inp" id="f-ln" placeholder="Votre nom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-lbl">Email <span>*</span></label>
+          <input type="email" class="form-inp" id="f-em" placeholder="email@exemple.com">
+        </div>
+        <div class="form-group">
+          <label class="form-lbl">Pays</label>
+          <select class="form-sel" id="f-pays">
+            <option value="">Sélectionner votre pays</option>
+            <optgroup label="Afrique de l'Ouest">
+              <option>Bénin</option><option>Burkina Faso</option><option>Cap-Vert</option>
+              <option>Côte d'Ivoire</option><option>Gambie</option><option>Ghana</option>
+              <option>Guinée</option><option>Guinée-Bissau</option><option>Liberia</option>
+              <option>Mali</option><option>Mauritanie</option><option>Niger</option>
+              <option>Nigeria</option><option>Sénégal</option><option>Sierra Leone</option><option>Togo</option>
+            </optgroup>
+            <optgroup label="Afrique Centrale">
+              <option>Angola</option><option>Cameroun</option><option>Congo</option>
+              <option>Congo (RDC)</option><option>Gabon</option><option>Guinée équatoriale</option>
+              <option>République centrafricaine</option><option>São Tomé-et-Príncipe</option><option>Tchad</option>
+            </optgroup>
+            <optgroup label="Afrique de l'Est">
+              <option>Burundi</option><option>Comores</option><option>Djibouti</option>
+              <option>Érythrée</option><option>Éthiopie</option><option>Kenya</option>
+              <option>Madagascar</option><option>Malawi</option><option>Maurice</option>
+              <option>Mozambique</option><option>Ouganda</option><option>Rwanda</option>
+              <option>Seychelles</option><option>Somalie</option><option>Soudan</option>
+              <option>Soudan du Sud</option><option>Tanzanie</option><option>Zambie</option><option>Zimbabwe</option>
+            </optgroup>
+            <optgroup label="Afrique du Nord">
+              <option>Algérie</option><option>Égypte</option><option>Libye</option>
+              <option>Maroc</option><option>Tunisie</option>
+            </optgroup>
+            <optgroup label="Afrique Australe">
+              <option>Afrique du Sud</option><option>Botswana</option><option>Eswatini</option>
+              <option>Lesotho</option><option>Namibie</option>
+            </optgroup>
+            <optgroup label="Diaspora & Autres">
+              <option>France</option><option>Belgique</option><option>Canada</option>
+              <option>États-Unis</option><option>Royaume-Uni</option><option>Autre</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-lbl">Votre profil <span>*</span></label>
+          <select class="form-sel" id="f-profil">
+            <option value="">Sélectionner</option>
+            <option>Développeur / Ingénieur</option>
+            <option>Designer UI/UX</option>
+            <option>Marketing & Communication</option>
+            <option>Entrepreneur / Business</option>
+            <option>Investisseur / Partenaire</option>
+            <option>Étudiant</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-lbl">Message / Motivation</label>
+          <textarea class="form-txt" id="f-msg" placeholder="Dites-nous pourquoi vous voulez rejoindre UD20..."></textarea>
+        </div>
+        <button class="form-btn" onclick="submitJoin()">Rejoindre l'aventure UD20</button>
+        <p class="form-note-txt">Aucun engagement — nous vous recontacterons</p>
+      </div>
+      <div class="form-success" id="join-success"></div>
+    </div>
+  </div>
+  <div class="join-perks">
+    <div class="join-perk"><span class="perk-icon">◈</span> Accès prioritaire aux produits en avant-première</div>
+    <div class="join-perk"><span class="perk-icon">◉</span> Faire partie de l'écosystème dès le début</div>
+    <div class="join-perk"><span class="perk-icon">◎</span> Opportunités de collaboration et de partenariat</div>
+    <div class="join-perk"><span class="perk-icon">◇</span> Contribuer à construire le numérique africain</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="section-tag">06 — Contact</div>
+  <h2 class="contact-title reveal">Travaillons<br><em>ensemble.</em></h2>
+  <div class="contact-cols reveal">
+    <div class="ccol">
+      <div class="ccol-ttl">Contact direct</div>
+      <a href="mailto:rolandsiho@gmail.com">rolandsiho@gmail.com</a>
+    </div>
+    <div class="ccol">
+      <div class="ccol-ttl">Réseaux sociaux</div>
+      <a href="#">TikTok — @ud20official</a>
+      <a href="#">Instagram — @ud20official</a>
+      <a href="#">LinkedIn — UD20</a>
+    </div>
+    <div class="ccol">
+      <div class="ccol-ttl">Localisation</div>
+      <p>Abidjan, Côte d'Ivoire</p>
+      <p>Afrique de l'Ouest</p>
+      <p style="margin-top:8px; font-size:11px; font-family:'DM Mono',monospace; letter-spacing:.1em; color:var(--gray);">Lancement officiel — 2028</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">UD20</div>
+      <p class="footer-mission">Nous prenons le meilleur du monde.<br>Nous le construisons pour l'Afrique.</p>
+    </div>
+    <div class="footer-devise">
+      <div class="devise-flag">🇨🇮</div>
+      <div class="devise-words">Union<span class="devise-sep">·</span>Discipline<span class="devise-sep">·</span>Travail</div>
+      <div class="devise-note">Devise de la République de Côte d'Ivoire</div>
+      <div class="devise-note" style="margin-top:3px;">rolandsiho@gmail.com</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 UD20 — Tous droits réservés</span>
+    <span class="powered">Powered by UD20</span>
+    <span>Built in Africa. Built for Africa.</span>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal - force visible after timeout as fallback
+var revealEls = document.querySelectorAll('.reveal');
+
+function checkReveal() {
+  revealEls.forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92) {
+      el.classList.add('visible');
+    }
+  });
+}
+
+window.addEventListener('scroll', checkReveal);
+window.addEventListener('resize', checkReveal);
+// Run immediately on load
+checkReveal();
+// Fallback: force all visible after 300ms if observer fails
+setTimeout(function() {
+  revealEls.forEach(function(el) { el.classList.add('visible'); });
+}, 300);
+
+// Personalized join form
+function submitJoin() {
+  var fn = document.getElementById('f-fn').value.trim();
+  var ln = document.getElementById('f-ln').value.trim();
+  var em = document.getElementById('f-em').value.trim();
+  var pr = document.getElementById('f-profil').value;
+  var pays = document.getElementById('f-pays').value;
+
+  if (!fn || !ln) { showErr('Entrez votre prénom et nom.'); return; }
+  if (!em || !em.includes('@')) { showErr('Entrez une adresse email valide.'); return; }
+  if (!pr) { showErr('Sélectionnez votre profil.'); return; }
+
+  var msgs = {
+    'Développeur / Ingénieur': 'Parfait ' + fn + '. Les bâtisseurs sont exactement ce dont UD20 a besoin. Des défis techniques passionnants vous attendent.',
+    'Designer UI/UX': 'Bienvenue ' + fn + '. Le design pensé pour l\'Afrique, c\'est une mission rare. Votre regard sera précieux pour l\'écosystème UD20.',
+    'Marketing & Communication': 'Super ' + fn + '. Faire rayonner UD20 sur le continent, c\'est une aventure en soi. Vous arrivez au bon moment.',
+    'Entrepreneur / Business': 'Excellent ' + fn + '. Les entrepreneurs qui comprennent les réalités africaines sont nos meilleurs alliés. Beaucoup à construire ensemble.',
+    'Investisseur / Partenaire': 'Merci ' + fn + '. UD20 est un écosystème en construction et les bons partenaires font toute la différence. Nous reviendrons vers vous très vite.',
+    'Étudiant': 'Bienvenue ' + fn + '. Les plus grandes réussites africaines ont été bâties par des gens qui ont commencé tôt. Vous êtes à la bonne place.',
+    'Autre': 'Merci ' + fn + '. Peu importe votre profil — si vous croyez en la mission, il y a une place pour vous dans l\'aventure UD20.'
+  };
+
+  var persoMsg = msgs[pr] || ('Merci ' + fn + ', votre demande a bien été reçue.');
+  var paysMsg = pays ? ' Depuis ' + pays + ', bienvenue dans l\'aventure.' : '';
+  var paysRow = pays ? '<div><span class="recap-label">Pays — </span>' + pays + '</div>' : '';
+
+  document.getElementById('join-form').style.display = 'none';
+
+  var s = document.getElementById('join-success');
+  s.innerHTML =
+    '<div class="success-icon">◈</div>' +
+    '<div class="success-title">Bienvenue, <em style="font-style:italic;font-weight:400;color:rgba(255,255,255,.4)">' + fn + ' ' + ln + '</em></div>' +
+    '<p class="success-body">' + persoMsg + paysMsg + '</p>' +
+    '<div class="success-recap">' +
+      '<div class="recap-title">Récapitulatif</div>' +
+      '<div class="recap-row">' +
+        '<div><span class="recap-label">Nom — </span>' + fn + ' ' + ln + '</div>' +
+        '<div><span class="recap-label">Email — </span>' + em + '</div>' +
+        '<div><span class="recap-label">Profil — </span>' + pr + '</div>' +
+        paysRow +
+      '</div>' +
+    '</div>' +
+    '<p class="success-note">Roland Siho vous recontactera à l\'adresse ' + em + '</p>';
+
+  s.classList.add('show');
+}
+
+function showErr(msg) {
+  var ex = document.getElementById('f-err');
+  if (ex) ex.remove();
+  var el = document.createElement('div');
+  el.id = 'f-err';
+  el.style.cssText = 'font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#ff6b6b;padding:11px 14px;border:1px solid rgba(255,107,107,.25);margin-bottom:2px;';
+  el.textContent = msg;
+  document.getElementById('join-form').prepend(el);
+  setTimeout(function() { el.remove(); }, 3000);
+}
+</script>
+</body>
+</html>
